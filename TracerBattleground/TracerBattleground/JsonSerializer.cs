@@ -9,5 +9,10 @@ namespace TracerBattleground
         {
             return JsonConvert.SerializeObject(traceResult, Formatting.Indented);
         }
+
+        public string GetExtension()
+        {
+            return ".json";
+        }
     }
 }

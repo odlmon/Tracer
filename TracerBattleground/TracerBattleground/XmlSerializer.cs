@@ -28,5 +28,10 @@ namespace TracerBattleground
                 return textWriter.ToString();
             }
         }
+
+        public string GetExtension()
+        {
+            return ".xml";
+        }
     }
 }
