@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Text.Json;
 using System.Threading;
 using Tracer;
 
@@ -63,20 +62,10 @@ namespace TracerBattleground
 
             Thread thread = new Thread(() => new A(tracer).Another() );
             thread.Start();
-
-            var options = new JsonSerializerOptions
-            {
-                WriteIndented = true
-            };
             thread.Join();
 
-            Console.WriteLine(JsonConvert.SerializeObject(tracer.GetTraceResult(), 
-                Formatting.Indented));
-
-        //    Console.WriteLine(JsonSerializer.Serialize<ThreadInfo>(thread, 
-          //      options));
-
-            Console.ReadLine();
+            Console.WriteLine(new JsonSerializer().Serialize(tracer.GetTraceResult()));
+            Console.WriteLine(new XmlSerializer().Serialize(tracer.GetTraceResult()));
         }
     }
 }
