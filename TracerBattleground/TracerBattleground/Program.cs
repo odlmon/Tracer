@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Threading;
+﻿using System.Threading;
 using Tracer;
 
 namespace TracerBattleground
@@ -27,7 +25,7 @@ namespace TracerBattleground
         public void Another()
         {
             tracer.StartTrace();
-            for (int i = 0; i < 1000000000; i++) { }
+            for (int i = 0; i < 100000000; i++) { }
             tracer.StopTrace();
         }
     }
@@ -46,7 +44,7 @@ namespace TracerBattleground
             tracer.StartTrace();
             for (int i = 0; i < 1000000; i++)
             {
-
+                int a = i + 1;
             }
             tracer.StopTrace();
         }
@@ -64,8 +62,19 @@ namespace TracerBattleground
             thread.Start();
             thread.Join();
 
-            Console.WriteLine(new JsonSerializer().Serialize(tracer.GetTraceResult()));
-            Console.WriteLine(new XmlSerializer().Serialize(tracer.GetTraceResult()));
+            TraceResult traceResult = tracer.GetTraceResult();
+            
+            var consoleWriter = new ConsoleWriter();
+            var fileWriter = new FileWriter();
+            
+            var jsonSerializer = new JsonSerializer();
+            var xmlSerializer = new XmlSerializer();
+
+            consoleWriter.Write(jsonSerializer, traceResult);
+            consoleWriter.Write(xmlSerializer, traceResult);
+            
+            fileWriter.Write(jsonSerializer, traceResult);
+            fileWriter.Write(xmlSerializer, traceResult);
         }
     }
 }
