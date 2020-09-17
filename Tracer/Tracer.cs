@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Tracer
 {
@@ -25,15 +22,7 @@ namespace Tracer
 
         public void StartTrace()
         {
-            //check thread
             int threadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
-            // if (!traceResult.threads.Any(item => item.Key == threadId.ToString())) 
-            // { //create with current if not exist yet
-            //     traceResult.threads.TryAdd(threadId.ToString(), new ThreadInfo
-            //     {
-            //         time = "0ms"
-            //     });
-            // }
             traceResult.threads.GetOrAdd(threadId.ToString(), new ThreadInfo
             {
                 time = "0ms"
@@ -87,8 +76,7 @@ namespace Tracer
             tracedItem.methodInfo.time = elapsedTime;
 
             ThreadInfo threadInfo;
-            if (!traceResult.threads.TryGetValue(
-                threadId.ToString(), out threadInfo))
+            if (!traceResult.threads.TryGetValue(threadId.ToString(), out threadInfo))
             {
                 Console.WriteLine("went wrong");
             }
