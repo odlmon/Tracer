@@ -1,5 +1,7 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace Tracer
 {
@@ -12,6 +14,13 @@ namespace Tracer
     }
     public class ThreadInfo
     {
+        public string time;
+        public List<MethodInfo> methods = new List<MethodInfo>();
+    }
+
+    public class ThreadItem
+    {
+        public string id;
         public string time;
         public List<MethodInfo> methods = new List<MethodInfo>();
     }
